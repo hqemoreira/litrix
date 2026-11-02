@@ -14,20 +14,53 @@
     var btn = document.getElementById("theme-toggle");
     if (!btn) return;
     btn.innerHTML = theme === "dark" ? SUN_ICON : MOON_ICON;
-    btn.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    btn.setAttribute(
+      "aria-label",
+      theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+    );
   }
 
   function setTheme(theme) {
     document.documentElement.setAttribute("data-theme", theme);
     try {
       localStorage.setItem("morea-theme", theme);
-      try { localStorage.setItem("litrix-theme", theme); } catch (e2) {}
+      try {
+        localStorage.setItem("litrix-theme", theme);
+      } catch (e2) {}
     } catch (e) {}
     updateIcon(theme);
   }
 
+  function setupMobileNav() {
+    var header = document.querySelector(".site-header .container-wide");
+    var nav = document.querySelector(".site-header .site-nav");
+    if (!header || !nav || document.getElementById("nav-toggle")) return;
+
+    var toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.id = "nav-toggle";
+    toggle.className = "nav-toggle";
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.setAttribute("aria-controls", "site-nav-panel");
+    toggle.setAttribute("aria-label", "Open menu");
+    toggle.innerHTML =
+      '<span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>';
+
+    nav.id = nav.id || "site-nav-panel";
+    header.appendChild(toggle);
+
+    toggle.addEventListener("click", function () {
+      var open = !nav.classList.contains("is-open");
+      nav.classList.toggle("is-open", open);
+      toggle.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     updateIcon(currentTheme());
+    setupMobileNav();
     var btn = document.getElementById("theme-toggle");
     if (btn) {
       btn.addEventListener("click", function () {
