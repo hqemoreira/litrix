@@ -143,6 +143,7 @@ code, .mono { font-family: var(--mono); }
   height: 26px;
   color: var(--ink);
   flex-shrink: 0;
+  overflow: visible;
 }
 .wordmark-text {
   display: inline-flex;
@@ -411,7 +412,7 @@ footer.site-footer {
   text-decoration: none;
   flex-shrink: 0;
 }
-.footer-mark .logo-mark { width: 17px; height: 17px; }
+.footer-mark .logo-mark { width: 22px; height: 22px; }
 .footer-status {
   margin: 0;
   flex: 1 1 12rem;
@@ -745,7 +746,7 @@ a.morea-stepper-link:hover { color: var(--accent); opacity: 1; }
   width: 140px;
   height: 140px;
   opacity: 0.07;
-  background: url("/favicon.svg") center / contain no-repeat;
+  background: url("/brand/morea-mark.svg") center / contain no-repeat;
   pointer-events: none;
 }
 .cta-time {
@@ -894,6 +895,8 @@ a.morea-stepper-link:hover { color: var(--accent); opacity: 1; }
     padding-bottom: 12px;
   }
   .site-header .wordmark { grid-column: 1; }
+  .logo-mark { width: 28px; height: 28px; }
+  .footer-mark .logo-mark { width: 24px; height: 24px; }
   .theme-toggle { grid-column: 2; margin-left: 0; }
   .nav-toggle { display: inline-flex; grid-column: 3; }
   .site-nav {
@@ -967,7 +970,7 @@ a.morea-stepper-link:hover { color: var(--accent); opacity: 1; }
     width: 88px;
     height: 88px;
     opacity: 0.07;
-    background: url("/favicon.svg") center / contain no-repeat;
+    background: url("/brand/morea-mark.svg") center / contain no-repeat;
   }
   .pack-section { break-inside: avoid; }
   a { color: #000; text-decoration: none; }
