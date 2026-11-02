@@ -1,14 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" fill="none">
   <rect width="256" height="256" rx="48" fill="#faf8f5"/>
-  <!-- Mulberry leaf -->
   <path
-    d="M128 36C100 62 64 88 56 128c-6.4 32 9.6 65.6 41.6 83.2 11.2 6.4 23.2 9.6 30.4 9.6s19.2-3.2 30.4-9.6C190.4 193.6 206.4 160 200 128 192 88 156 62 128 36z"
+    d="M129.6 28c-22.4 19.2-60.8 46.4-75.2 89.6-11.2 33.6 1.6 68.8 30.4 89.6 12.8 8.8 27.2 14.4 43.2 14.4 12.8 0 25.6-4 38.4-11.2 30.4-17.6 49.6-49.6 44.8-86.4C203.2 79.2 168 46 129.6 28z"
     fill="#1a302b"
   />
-  <!-- Central vein -->
-  <path d="M128 64v114" stroke="#faf8f5" stroke-width="8" stroke-linecap="round" opacity="0.35"/>
-  <!-- Side veins -->
-  <path d="M128 104c-18 10-30 22-37 37M128 124c16 9 27 20 34 33" stroke="#faf8f5" stroke-width="7" stroke-linecap="round" opacity="0.45"/>
-  <!-- Evidence check -->
-  <path d="M102 148l18 18 36-38" stroke="#8fb8a2" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M153.6 60c12.8 14.4 22.4 30.4 25.6 46.4" stroke="#faf8f5" stroke-width="7" stroke-linecap="round" opacity="0.22"/>
+  <path d="M124.8 58v78" stroke="#faf8f5" stroke-width="10" stroke-linecap="round" opacity="0.35"/>
+  <path d="M98 148l26 26 42-46" stroke="#8fb8a2" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

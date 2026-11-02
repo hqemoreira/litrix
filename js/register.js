@@ -20,10 +20,10 @@
 
   var packCore = {
     product: "Morea Evidence Pack",
-    version: "0.2",
+    version: "0.3",
     illustrative: true,
     disclaimer:
-      "Educational / illustrative research prototype. Not legal advice. Not a conformity assessment. Not a compliance service. Personal reskilling · Non-commercial · Not a product for sale.",
+      "Educational / illustrative research prototype. Not legal advice. Not a conformity assessment. Not a compliance service. Personal reskilling · Non-commercial · Not a product for sale. SHA-256 content hash proves file integrity in-browser — not third-party auditor attestation.",
     inventory: inventory || { tools: [], none: true },
     classification: {
       company_size: intake.answers.size,
@@ -78,71 +78,95 @@
 
   var contentEl = document.getElementById("register-content");
   var completedDate = new Date(pack.completed_at).toLocaleString();
-  var toolsHtml = "";
-  if (pack.inventory.none) {
-    toolsHtml = "<tr><th>AI inventory</th><td>None listed / no tools in use</td></tr>";
-  } else if (pack.inventory.tools && pack.inventory.tools.length) {
-    toolsHtml =
-      "<tr><th>AI inventory</th><td>" +
-      escapeHtml(
-        pack.inventory.tools
-          .map(function (t) {
-            return t.customName || t.label;
-          })
-          .join(", ")
-      ) +
-      "</td></tr>";
+  var trackLabel = track === "partner_ops" ? "Partner / ops" : "Staff user";
+  var toolsList = "None listed";
+  if (!pack.inventory.none && pack.inventory.tools && pack.inventory.tools.length) {
+    toolsList = pack.inventory.tools
+      .map(function (t) {
+        return t.customName || t.label;
+      })
+      .join(", ");
   }
-
-  var policyNote =
-    pack.policy && pack.policy.skipped
-      ? "Skipped (optional)"
+  var policySkipped = !!(pack.policy && pack.policy.skipped);
+  var policyBody = policySkipped
+    ? "Skipped (optional)"
+    : pack.policy && pack.policy.body
+      ? pack.policy.body
       : pack.policy && pack.policy.title
         ? pack.policy.title
         : "Included";
 
   contentEl.innerHTML =
-    '<p class="dossier-label">Evidence Pack &middot; Illustrative</p>' +
-    "<h1>Pack ready to show</h1>" +
+    '<div class="pack-print dossier">' +
+    '<p class="dossier-label">AI Literacy Evidence Pack · Illustrative</p>' +
+    "<h1>Organisational literacy record</h1>" +
+    '<p class="cta-time">' +
+    escapeHtml(completedDate) +
+    " · " +
+    escapeHtml(trackLabel) +
+    "</p>" +
     '<div class="stamp stamp-' +
     pack.classification.tier +
-    '" style="margin-bottom:20px;">' +
+    '" style="margin-bottom:8px;">' +
     escapeHtml(pack.classification.tierLabel) +
     "</div>" +
+    '<p class="faint">Illustrative exposure classification — learning signal only, not a legal determination.</p>' +
+    '<section class="pack-section">' +
+    '<p class="pack-section-num">01 · Completed evidence</p>' +
     "<table>" +
-    '<tr><th>Verification code</th><td class="mono">' +
-    code +
+    "<tr><th>AI-use inventory</th><td>" +
+    escapeHtml(toolsList) +
     "</td></tr>" +
-    "<tr><th>Completed</th><td>" +
-    completedDate +
-    "</td></tr>" +
-    "<tr><th>Literacy track</th><td>" +
-    (track === "partner_ops" ? "Partner / ops" : "Staff user") +
-    "</td></tr>" +
-    "<tr><th>Sector</th><td>" +
-    escapeHtml(pack.classification.sector) +
-    "</td></tr>" +
-    "<tr><th>Company size</th><td>" +
-    escapeHtml(pack.classification.company_size) +
-    "</td></tr>" +
-    toolsHtml +
-    "<tr><th>Quiz score</th><td>" +
+    "<tr><th>Literacy module</th><td>" +
+    escapeHtml(pack.literacy.moduleTitle || "Completed") +
+    " (" +
+    escapeHtml(trackLabel) +
+    ")</td></tr>" +
+    "<tr><th>Knowledge check</th><td>" +
     pack.quiz.score +
     " / " +
     pack.quiz.total +
     "</td></tr>" +
-    "<tr><th>Policy draft</th><td>" +
-    escapeHtml(policyNote) +
+    "<tr><th>Sector / size</th><td>" +
+    escapeHtml(pack.classification.sector) +
+    " · " +
+    escapeHtml(pack.classification.company_size) +
     "</td></tr>" +
     "</table>" +
+    "</section>" +
+    '<section class="pack-section">' +
+    '<p class="pack-section-num">02 · Optional <span class="pack-optional-tag">optional</span></p>' +
+    "<table>" +
+    "<tr><th>Policy draft</th><td>" +
+    escapeHtml(
+      typeof policyBody === "string" && policyBody.length > 280
+        ? policyBody.slice(0, 280) + "…"
+        : policyBody
+    ) +
+    "</td></tr>" +
+    "</table>" +
+    "</section>" +
+    '<section class="pack-section">' +
+    '<p class="pack-section-num">03 · Verification</p>' +
+    "<table>" +
+    '<tr><th>Verification code</th><td class="mono">' +
+    code +
+    "</td></tr>" +
+    '<tr><th>Content hash (SHA-256)</th><td class="mono" style="font-size:0.72rem;word-break:break-all;">' +
+    hex +
+    "</td></tr>" +
+    "</table>" +
+    '<p class="faint" style="margin-top:12px;">This hash lets anyone recompute integrity of the JSON in their browser. It is <strong>not</strong> auditor-grade attestation or a third-party certificate.</p>' +
+    "</section>" +
     '<p class="faint" style="margin-top:16px;">' +
     escapeHtml(pack.disclaimer) +
     "</p>" +
-    '<p style="margin-top:20px;" class="no-print">' +
-    '<button class="btn btn-primary" id="export-btn">Download evidence-pack.json</button> ' +
+    "</div>" +
+    '<p style="margin-top:20px;" class="no-print cta-row">' +
+    '<button class="btn btn-primary" id="export-btn">Download JSON</button>' +
     '<button class="btn btn-secondary" id="print-btn">Print dossier</button>' +
+    '<a class="btn btn-secondary" href="/verify.html">Verify</a>' +
     "</p>" +
-    '<p class="faint no-print">Client-side verify: open <a href="/verify.html">verify</a> and upload this JSON, or look up a saved demo code.</p>' +
     '<div id="save-status" class="no-print"></div>';
 
   document.getElementById("export-btn").addEventListener("click", function () {
@@ -197,7 +221,7 @@
       }
     } else {
       statusEl.innerHTML =
-        '<div class="notice">No account required. Keep the downloaded JSON as your illustrative Evidence Pack. Demo login exists only for portfolio experiments — not a product, no billing.</div>';
+        '<div class="notice">No account required. Keep the downloaded JSON as your illustrative Evidence Pack.</div>';
     }
   } catch (err) {
     statusEl.innerHTML =

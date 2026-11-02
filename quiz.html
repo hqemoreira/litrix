@@ -16,7 +16,7 @@
 <header class="site-header">
   <div class="container-wide">
     <a class="wordmark" href="/">
-      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M16 3C12.5 6.2 8 9.5 7 14.5c-.8 4 1.2 8.2 5.2 10.4 1.4.8 2.9 1.2 3.8 1.2s2.4-.4 3.8-1.2c4-2.2 6-6.4 5.2-10.4C24 9.5 19.5 6.2 16 3z" fill="currentColor"/><path class="logo-check" d="M12.8 18.2l2.2 2.2 4.4-4.6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M16.2 2.8c-2.8 2.4-7.6 5.8-9.4 11.2-1.4 4.2.2 8.6 3.8 11.2 1.6 1.1 3.4 1.8 5.4 1.8 1.6 0 3.2-.5 4.8-1.4 3.8-2.2 6.2-6.2 5.6-10.8C25.6 9.2 21.2 5.2 16.2 2.8z" fill="currentColor"/><path d="M15.6 7.2v9.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.35"/><path class="logo-check" d="M12.2 17.6l3.2 3.2 5.2-5.6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span class="wordmark-text">Morea<span class="article4">Evidence Pack</span></span>
     </a>
     <nav class="site-nav">
@@ -25,16 +25,20 @@
   </div>
 </header>
 
-<main class="container" style="padding: 48px 24px 70px;">
+<main class="container app-shell">
   <div id="morea-stepper" class="morea-stepper-host no-print" data-step="quiz"></div>
+  <p class="step-where">Step 04 · Quiz</p>
   <h1 id="quiz-title">Three quick questions</h1>
+  <p class="step-what">Confirm understanding for your track. Explanations appear after you submit.</p>
+  <p class="step-next">Next: Optional policy draft</p>
   <form id="quiz-form" class="dossier"></form>
   <section id="result" class="dossier" style="display:none; margin-top:24px;"></section>
+  <div id="morea-flow-nav" data-back="/module.html" data-form="quiz-form" data-continue-label="Submit answers"></div>
 </main>
 
 <footer class="site-footer">
-    <div class="container-wide site-footer-bar">
-    <a class="footer-mark" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M16 3C12.5 6.2 8 9.5 7 14.5c-.8 4 1.2 8.2 5.2 10.4 1.4.8 2.9 1.2 3.8 1.2s2.4-.4 3.8-1.2c4-2.2 6-6.4 5.2-10.4C24 9.5 19.5 6.2 16 3z" fill="currentColor"/><path class="logo-check" d="M12.8 18.2l2.2 2.2 4.4-4.6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Morea</a>
+  <div class="container-wide site-footer-bar">
+    <a class="footer-mark" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M16.2 2.8c-2.8 2.4-7.6 5.8-9.4 11.2-1.4 4.2.2 8.6 3.8 11.2 1.6 1.1 3.4 1.8 5.4 1.8 1.6 0 3.2-.5 4.8-1.4 3.8-2.2 6.2-6.2 5.6-10.8C25.6 9.2 21.2 5.2 16.2 2.8z" fill="currentColor"/><path d="M15.6 7.2v9.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.35"/><path class="logo-check" d="M12.2 17.6l3.2 3.2 5.2-5.6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Morea</a>
     <p class="footer-status">Personal reskilling project · Non-commercial · Not a product for sale · No accounts / no billing</p>
     <nav class="footer-links">
       <a href="/terms.html">Terms</a>
@@ -46,6 +50,7 @@
 <script src="/js/theme.js"></script>
 <script src="/js/storage.js"></script>
 <script src="/js/stepper.js"></script>
+<script src="/js/flow-nav.js"></script>
 <script src="/js/quiz.js"></script>
 <script>
 const intake = MoreaStore.getJSON("intake");
@@ -88,21 +93,22 @@ QUIZ.forEach((q, qi) => {
   form.appendChild(fieldset);
 });
 
-const submitBtn = document.createElement("button");
-submitBtn.type = "submit";
-submitBtn.className = "btn btn-primary btn-block";
-submitBtn.textContent = "Submit answers";
-form.appendChild(submitBtn);
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const data = new FormData(form);
   let correctCount = 0;
+  let explainHtml = "";
 
-  QUIZ.forEach((q) => {
+  QUIZ.forEach((q, i) => {
     const chosen = data.get(q.id);
     const correctOpt = q.options.find((o) => o.correct);
-    if (chosen === correctOpt.value) correctCount++;
+    const ok = chosen === correctOpt.value;
+    if (ok) correctCount++;
+    explainHtml +=
+      '<div class="quiz-explain' + (ok ? "" : " is-wrong") + '">' +
+      "<strong>Q" + (i + 1) + (ok ? " — correct.</strong> " : " — not quite.</strong> ") +
+      (q.explain || "") +
+      "</div>";
   });
 
   const quizResult = {
@@ -120,12 +126,14 @@ form.addEventListener("submit", (e) => {
   if (quizResult.passed) {
     resultEl.innerHTML =
       '<p class="dossier-label">Result</p><h2>' + correctCount + " / " + QUIZ.length + " correct</h2>" +
-      '<p>Comprehension confirmed. Next: optional illustrative policy draft, then your Evidence Pack.</p>' +
+      explainHtml +
+      '<p style="margin-top:16px;">Comprehension confirmed. Next: optional policy draft, then your Evidence Pack.</p>' +
       '<a class="btn btn-primary" href="/policy.html">Continue to policy draft</a>';
   } else {
     resultEl.innerHTML =
       '<p class="dossier-label">Result</p><h2>' + correctCount + " / " + QUIZ.length + " correct</h2>" +
-      '<div class="notice notice-error">A couple of answers need another look before this counts as demonstrated comprehension.</div>' +
+      explainHtml +
+      '<div class="notice notice-error" style="margin-top:14px;">Review the notes above, then try again so this counts as demonstrated comprehension.</div>' +
       '<button class="btn btn-secondary" onclick="window.location.reload()">Try again</button>';
   }
   resultEl.scrollIntoView({ behavior: "smooth" });

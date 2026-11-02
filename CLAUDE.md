@@ -12,7 +12,7 @@ Non-commercial learning demo (**Morea Evidence Pack**) for EU AI Act Article 4 l
 - Article 4 (Omnibus mid-2026): providers/deployers shall take measures to **support development** of AI literacy; does **not** require guaranteeing any individual’s literacy level. In force since 2 Feb 2025. Never sell legal advice.
 
 ## Core thesis
-**The demo object is the Evidence Pack.** Inventory + literacy + quiz + optional policy + SHA-256 `MOREA-…` code. Brand mark: mulberry leaf + evidence check.
+**The demo object is the Evidence Pack.** Inventory + literacy + quiz + optional policy + SHA-256 `MOREA-…` code. Brand mark: evolved mulberry leaf + evidence check (static primary; subtle hover only).
 
 ## Live URL
 - **https://morea-pack.vercel.app**

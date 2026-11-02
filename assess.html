@@ -18,7 +18,7 @@
 <header class="site-header">
   <div class="container-wide">
     <a class="wordmark" href="/">
-      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M16 3C12.5 6.2 8 9.5 7 14.5c-.8 4 1.2 8.2 5.2 10.4 1.4.8 2.9 1.2 3.8 1.2s2.4-.4 3.8-1.2c4-2.2 6-6.4 5.2-10.4C24 9.5 19.5 6.2 16 3z" fill="currentColor"/><path class="logo-check" d="M12.8 18.2l2.2 2.2 4.4-4.6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M16.2 2.8c-2.8 2.4-7.6 5.8-9.4 11.2-1.4 4.2.2 8.6 3.8 11.2 1.6 1.1 3.4 1.8 5.4 1.8 1.6 0 3.2-.5 4.8-1.4 3.8-2.2 6.2-6.2 5.6-10.8C25.6 9.2 21.2 5.2 16.2 2.8z" fill="currentColor"/><path d="M15.6 7.2v9.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.35"/><path class="logo-check" d="M12.2 17.6l3.2 3.2 5.2-5.6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span class="wordmark-text">Morea<span class="article4">Evidence Pack</span></span>
     </a>
     <nav class="site-nav">
@@ -28,18 +28,21 @@
   </div>
 </header>
 
-<main class="container" style="padding: 48px 24px 70px;">
+<main class="container app-shell">
   <div id="morea-stepper" class="morea-stepper-host no-print" data-step="assess"></div>
-  <h1>Illustrative Article 4 exposure intake</h1>
-  <p>Six questions. Scored instantly in your browser. Educational only — not a compliance assessment. Article 4 asks organisations to take measures to support AI literacy development; it does not require guaranteeing any individual’s literacy level.</p>
+  <p class="step-where">Step 02 · Exposure</p>
+  <h1>How exposed is your AI use?</h1>
+  <p class="step-what">Six questions scored in this browser. Educational only — not a compliance assessment.</p>
+  <p class="step-next">Next: Role-aware literacy module</p>
 
   <form id="assess-form" class="dossier"></form>
   <section id="result" class="dossier" style="display: none; margin-top: 24px;"></section>
+  <div id="morea-flow-nav" data-back="/inventory.html" data-form="assess-form" data-continue-label="See classification"></div>
 </main>
 
 <footer class="site-footer">
     <div class="container-wide site-footer-bar">
-    <a class="footer-mark" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M16 3C12.5 6.2 8 9.5 7 14.5c-.8 4 1.2 8.2 5.2 10.4 1.4.8 2.9 1.2 3.8 1.2s2.4-.4 3.8-1.2c4-2.2 6-6.4 5.2-10.4C24 9.5 19.5 6.2 16 3z" fill="currentColor"/><path class="logo-check" d="M12.8 18.2l2.2 2.2 4.4-4.6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Morea</a>
+    <a class="footer-mark" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M16.2 2.8c-2.8 2.4-7.6 5.8-9.4 11.2-1.4 4.2.2 8.6 3.8 11.2 1.6 1.1 3.4 1.8 5.4 1.8 1.6 0 3.2-.5 4.8-1.4 3.8-2.2 6.2-6.2 5.6-10.8C25.6 9.2 21.2 5.2 16.2 2.8z" fill="currentColor"/><path d="M15.6 7.2v9.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.35"/><path class="logo-check" d="M12.2 17.6l3.2 3.2 5.2-5.6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Morea</a>
     <p class="footer-status">Personal reskilling project · Non-commercial · Not a product for sale · No accounts / no billing</p>
     <nav class="footer-links">
       <a href="/terms.html">Terms</a>
@@ -51,6 +54,7 @@
 <script src="/js/theme.js"></script>
 <script src="/js/storage.js"></script>
 <script src="/js/stepper.js"></script>
+<script src="/js/flow-nav.js"></script>
 <script src="/js/classification.js"></script>
 <script>
 if (!MoreaStore.get("inventory")) {
@@ -58,6 +62,11 @@ if (!MoreaStore.get("inventory")) {
 }
 
 const form = document.getElementById("assess-form");
+const TIER_MEANING = {
+  low: "Lower illustrative exposure: AI use looks limited or well bounded in this demo. Still useful to document tools and literacy habits.",
+  moderate: "Moderate illustrative exposure: AI is part of regular work. Literacy measures and clear tool inventory matter more.",
+  elevated: "Higher illustrative exposure: AI may influence decisions about people or sit in a higher-scrutiny context. This demo is not a compliance review — treat the label as a learning signal only."
+};
 
 MOREA_QUESTIONS.forEach((q, qi) => {
   const fieldset = document.createElement("fieldset");
@@ -85,12 +94,6 @@ MOREA_QUESTIONS.forEach((q, qi) => {
   form.appendChild(fieldset);
 });
 
-const submitBtn = document.createElement("button");
-submitBtn.type = "submit";
-submitBtn.className = "btn btn-primary btn-block";
-submitBtn.textContent = "See my exposure classification";
-form.appendChild(submitBtn);
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const data = new FormData(form);
@@ -103,13 +106,13 @@ form.addEventListener("submit", (e) => {
   const resultEl = document.getElementById("result");
   resultEl.style.display = "block";
   const trackLabel = result.track === "partner_ops" ? "Partner / ops" : "Staff user";
+  const meaning = TIER_MEANING[result.tier] || TIER_MEANING.moderate;
   resultEl.innerHTML =
-    '<p class="dossier-label">Your result</p>' +
+    '<p class="dossier-label">Illustrative exposure classification</p>' +
     '<div class="stamp stamp-' + result.tier + '">' + result.tierLabel + '</div>' +
-    '<p style="margin-top:18px;">Illustrative exposure: <strong>' + result.tierLabel.toLowerCase() + '</strong>. Literacy track: <strong>' + trackLabel + '</strong>. Continue to your personalized module.</p>' +
-    (result.tier === "elevated"
-      ? '<div class="notice">Elevated exposure usually means AI influences decisions about people or a higher-scrutiny sector. This demo does not replace a real compliance review.</div>'
-      : "") +
+    '<p style="margin-top:18px;">' + meaning + '</p>' +
+    '<p>Your literacy track for the next step: <strong>' + trackLabel + '</strong>.</p>' +
+    '<div class="notice">This classification is a teaching aid for the prototype — not an official risk rating or legal determination.</div>' +
     '<a class="btn btn-primary" href="/module.html">Continue to literacy module</a>';
 
   resultEl.scrollIntoView({ behavior: "smooth" });

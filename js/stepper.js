@@ -1,13 +1,17 @@
 /** Six-step progress UI for Morea Evidence Pack flow. */
 (function () {
   var STEPS = [
-    { id: "inventory", label: "Inventory", href: "/inventory.html" },
-    { id: "assess", label: "Exposure", href: "/assess.html" },
-    { id: "module", label: "Literacy", href: "/module.html" },
-    { id: "quiz", label: "Quiz", href: "/quiz.html" },
-    { id: "policy", label: "Policy", href: "/policy.html" },
-    { id: "pack", label: "Pack", href: "/register.html" }
+    { id: "inventory", label: "Inventory", href: "/inventory.html", optional: false },
+    { id: "assess", label: "Exposure", href: "/assess.html", optional: false },
+    { id: "module", label: "Literacy", href: "/module.html", optional: false },
+    { id: "quiz", label: "Quiz", href: "/quiz.html", optional: false },
+    { id: "policy", label: "Policy", href: "/policy.html", optional: true },
+    { id: "pack", label: "Evidence", href: "/register.html", optional: false }
   ];
+
+  function pad(n) {
+    return n < 10 ? "0" + n : String(n);
+  }
 
   function currentStepId() {
     var el = document.getElementById("morea-stepper");
@@ -40,6 +44,7 @@
     STEPS.forEach(function (step, i) {
       var li = document.createElement("li");
       li.className = "morea-stepper-item";
+      if (step.optional) li.className += " is-optional";
       if (i < curIdx) li.className += " is-done";
       if (i === curIdx) li.className += " is-current";
 
@@ -47,15 +52,22 @@
       if (i < curIdx) {
         inner = document.createElement("a");
         inner.href = step.href;
+      } else if (i === curIdx) {
+        inner = document.createElement("span");
+        inner.setAttribute("aria-current", "step");
       } else {
         inner = document.createElement("span");
       }
       inner.className = "morea-stepper-link";
+      var opt = step.optional
+        ? '<span class="morea-stepper-opt">opt</span>'
+        : "";
       inner.innerHTML =
         '<span class="morea-stepper-num">' +
-        (i + 1) +
+        pad(i + 1) +
         '</span><span class="morea-stepper-label">' +
         step.label +
+        opt +
         "</span>";
       li.appendChild(inner);
       list.appendChild(li);
@@ -84,6 +96,8 @@
     host.innerHTML = "";
     host.appendChild(nav);
   }
+
+  window.MoreaSteps = STEPS;
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", mount);
