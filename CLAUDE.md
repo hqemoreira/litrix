@@ -16,7 +16,7 @@ Non-commercial learning demo (**Morea Evidence Pack**) for EU AI Act Article 4 l
 
 ## Live URL
 - **https://morea-pack.vercel.app**
-- Old hosts `litrixeu.vercel.app` / `moreaeu.vercel.app` 308-redirect via `vercel.json`
+- Note: `morea.vercel.app` is unrelated (third-party). Legacy `litrixeu` / `moreaeu` aliases removed.
 
 ## Current flow
 1. Landing

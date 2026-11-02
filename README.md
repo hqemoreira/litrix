@@ -17,7 +17,7 @@ Flow: inventory → assess → literacy module (Mistral + fallback) → quiz (st
 
 - Public educational pages are indexable (like GRYPS); optional demo auth pages stay `noindex`
 - Non-commercial research / skill demo — no pricing or billing
-- Owner: create a Google Search Console property for `morea-pack.vercel.app` and paste verification meta if needed (old litrixeu token removed). Note: `morea.vercel.app` is owned by an unrelated third-party app — production host is **morea-pack.vercel.app**; `litrixeu.vercel.app` and `moreaeu.vercel.app` 308-redirect here.
+- Owner: create a Google Search Console property for `morea-pack.vercel.app` and paste verification meta if needed. Note: `morea.vercel.app` is owned by an unrelated third-party app — production host is **morea-pack.vercel.app**.
 
 ## Brand
 
