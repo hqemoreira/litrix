@@ -469,9 +469,17 @@ footer.site-footer {
   color: var(--ink);
 }
 
+.logo-mark .logo-vein {
+  stroke: #8fb8a2;
+  fill: none;
+  stroke-dasharray: 11;
+  stroke-dashoffset: 0;
+  opacity: 0.9;
+}
 .logo-mark .logo-check {
   stroke: #8fb8a2;
   fill: none;
+  opacity: 0.85;
 }
 
 .morea-stepper-host {
@@ -691,12 +699,38 @@ a.morea-stepper-link:hover { color: var(--accent); opacity: 1; }
 }
 .verify-result-valid { border-left: 4px solid var(--stamp-low); }
 .verify-result-invalid { border-left: 4px solid var(--danger); }
+.logo-mark .logo-vein,
 .logo-mark .logo-check {
-  transition: stroke-dashoffset 400ms ease;
+  transition: none;
+}
+.wordmark:hover .logo-vein,
+.footer-mark:hover .logo-vein {
+  animation: morea-arrow-pass 0.55s ease forwards;
 }
 .wordmark:hover .logo-check,
 .footer-mark:hover .logo-check {
-  stroke: var(--accent);
+  animation: morea-check-light 0.7s ease forwards;
+}
+@keyframes morea-arrow-pass {
+  0% { stroke-dashoffset: 11; opacity: 0.55; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes morea-check-light {
+  0%, 45% { opacity: 0.22; filter: none; }
+  100% { opacity: 1; filter: drop-shadow(0 0 3px rgba(143, 184, 162, 0.9)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wordmark:hover .logo-vein,
+  .footer-mark:hover .logo-vein,
+  .wordmark:hover .logo-check,
+  .footer-mark:hover .logo-check {
+    animation: none;
+  }
+  .logo-mark .logo-vein,
+  .logo-mark .logo-check {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
 }
 
 .sample-dossier {
