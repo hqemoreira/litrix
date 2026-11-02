@@ -1,15 +1,15 @@
 # Morea Evidence Pack
 
-> Morea is a non-commercial educational research prototype (personal reskilling) for practising an EU AI Act Article 4 literacy Evidence Pack: AI-use inventory, role-aware literacy module, quiz, optional policy draft, and a dated SHA-256-verified export. It is not a compliance service, not legal advice, and not a product for sale. Hosted at https://litrixeu.vercel.app (legacy Litrix host name).
+> Morea is a non-commercial educational research prototype (personal reskilling) for practising an EU AI Act Article 4 literacy Evidence Pack: AI-use inventory, role-aware literacy module, quiz, optional policy draft, and a dated SHA-256-verified export. It is not a compliance service, not legal advice, and not a product for sale. Live at https://morea-pack.vercel.app.
 
 ## Key facts
-- Article 4 (AI literacy) applies since 2 February 2025.
-- Applies to providers and deployers in the EU; no SME size exemption from the literacy obligation itself.
+- Article 4 applies since 2 February 2025. Digital Omnibus on AI (mid-2026) clarified: take measures to support literacy development; no requirement to guarantee any individual’s literacy level.
+- Applies to providers and deployers in the EU.
 - Morea produces an illustrative Evidence Pack for learning — not auditor-grade attestation.
-- Local verification: upload evidence-pack.json at /verify.html. Optional demo code lookup also available.
+- Local verification: upload evidence-pack.json at /verify.html.
 
 ## Pages
-- [Homepage](https://litrixeu.vercel.app/): Morea Evidence Pack overview
-- [Inventory](https://litrixeu.vercel.app/inventory.html): AI-use inventory
-- [Exposure intake](https://litrixeu.vercel.app/assess.html): 6-question classification
-- [Verify](https://litrixeu.vercel.app/verify.html): JSON hash check / demo code lookup
+- [Homepage](https://morea-pack.vercel.app/): Morea Evidence Pack overview
+- [Inventory](https://morea-pack.vercel.app/inventory.html): AI-use inventory
+- [Exposure intake](https://morea-pack.vercel.app/assess.html): 6-question classification
+- [Verify](https://morea-pack.vercel.app/verify.html): JSON hash check / demo code lookup

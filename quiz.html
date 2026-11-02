@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){try{var t=(localStorage.getItem("morea-theme")||localStorage.getItem("litrix-theme"));if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <title>Comprehension check | Morea Evidence Pack</title>
-<meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -16,7 +15,7 @@
 <header class="site-header">
   <div class="container-wide">
     <a class="wordmark" href="/">
-      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 22V10h3.2c2.4 0 3.9 1.2 3.9 3.1 0 1.3-.7 2.3-1.9 2.8L16.2 22h-3.1l-2.6-5.4H11V22H8zm3-8.2h.5c.9 0 1.4-.5 1.4-1.2S12.4 11.4 11.5 11.4H11v2.4zM18.5 22l3.2-12h3.1L28 22h-3.2l-.5-2.1h-3.6L20.2 22h-1.7zm4.1-4.7h2.4l-1.2-4.5-1.2 4.5z" fill="currentColor"/></svg>
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M16 3C12.5 6.2 8 9.5 7 14.5c-.8 4 1.2 8.2 5.2 10.4 1.4.8 2.9 1.2 3.8 1.2s2.4-.4 3.8-1.2c4-2.2 6-6.4 5.2-10.4C24 9.5 19.5 6.2 16 3z" fill="currentColor"/><path class="logo-check" d="M12.8 18.2l2.2 2.2 4.4-4.6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span class="wordmark-text">Morea<span class="article4">Evidence Pack</span></span>
     </a>
     <nav class="site-nav">
@@ -26,7 +25,7 @@
 </header>
 
 <main class="container" style="padding: 48px 24px 70px;">
-  <p class="dossier-label">Step 3 of 5 &middot; Comprehension check</p>
+  <div id="morea-stepper" class="morea-stepper-host no-print" data-step="quiz"></div>
   <h1 id="quiz-title">Three quick questions</h1>
   <form id="quiz-form" class="dossier"></form>
   <section id="result" class="dossier" style="display:none; margin-top:24px;"></section>
@@ -34,7 +33,7 @@
 
 <footer class="site-footer">
   <div class="container-wide site-footer-bar">
-    <a class="footer-mark" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 22V10h3.2c2.4 0 3.9 1.2 3.9 3.1 0 1.3-.7 2.3-1.9 2.8L16.2 22h-3.1l-2.6-5.4H11V22H8zm3-8.2h.5c.9 0 1.4-.5 1.4-1.2S12.4 11.4 11.5 11.4H11v2.4zM18.5 22l3.2-12h3.1L28 22h-3.2l-.5-2.1h-3.6L20.2 22h-1.7zm4.1-4.7h2.4l-1.2-4.5-1.2 4.5z" fill="currentColor"/></svg>Morea</a>
+    <a class="footer-mark" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" fill="none"><path d="M16 3C12.5 6.2 8 9.5 7 14.5c-.8 4 1.2 8.2 5.2 10.4 1.4.8 2.9 1.2 3.8 1.2s2.4-.4 3.8-1.2c4-2.2 6-6.4 5.2-10.4C24 9.5 19.5 6.2 16 3z" fill="currentColor"/><path class="logo-check" d="M12.8 18.2l2.2 2.2 4.4-4.6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Morea</a>
     <p class="footer-status">&copy; 2026 Morea &middot; Espoo, Finland &middot; Personal reskilling · Non-commercial · Not a product for sale</p>
     <nav class="footer-links">
       <a href="/terms.html">Terms</a>
@@ -46,6 +45,7 @@
 
 <script src="/js/theme.js"></script>
 <script src="/js/storage.js"></script>
+<script src="/js/stepper.js"></script>
 <script src="/js/quiz.js"></script>
 <script>
 const intake = MoreaStore.getJSON("intake");

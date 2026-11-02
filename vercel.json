@@ -1,10 +1,40 @@
 {
-  "headers": [
+  "redirects": [
     {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
-      ]
+      "source": "/",
+      "has": [{ "type": "host", "value": "litrixeu.vercel.app" }],
+      "destination": "https://morea-pack.vercel.app/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "litrixeu.vercel.app" }],
+      "destination": "https://morea-pack.vercel.app/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "litrix.vercel.app" }],
+      "destination": "https://morea-pack.vercel.app/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "litrix.vercel.app" }],
+      "destination": "https://morea-pack.vercel.app/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "moreaeu.vercel.app" }],
+      "destination": "https://morea-pack.vercel.app/",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "moreaeu.vercel.app" }],
+      "destination": "https://morea-pack.vercel.app/:path*",
+      "permanent": true
     }
   ]
 }
