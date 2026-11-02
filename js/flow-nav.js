@@ -17,6 +17,8 @@
     }, 2200);
   }
 
+  window.MoreaToast = toast;
+
   function mount() {
     var host = document.getElementById("morea-flow-nav");
     if (!host) return;
@@ -37,8 +39,7 @@
       back.textContent = "Back";
       bar.appendChild(back);
     } else {
-      var spacer = document.createElement("span");
-      bar.appendChild(spacer);
+      bar.appendChild(document.createElement("span"));
     }
 
     var mid = document.createElement("div");
@@ -49,17 +50,16 @@
     save.className = "btn-text";
     save.textContent = "Save progress";
     save.addEventListener("click", function () {
-      if (formId) {
-        var form = document.getElementById(formId);
-        if (form && typeof form.requestSubmit === "function") {
-          /* Prefer page-specific save hooks via custom event */
-        }
-      }
+      var handled = { ok: false };
       document.dispatchEvent(
-        new CustomEvent("morea:save", { detail: { formId: formId } })
+        new CustomEvent("morea:save", {
+          detail: { formId: formId, handled: handled }
+        })
       );
-      if (typeof MoreaStore !== "undefined") {
+      if (handled.ok) {
         toast("Progress saved in this browser");
+      } else if (typeof MoreaStore !== "undefined") {
+        toast("Nothing new to save on this step");
       } else {
         toast("Could not save");
       }

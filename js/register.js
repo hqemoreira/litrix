@@ -97,6 +97,27 @@
         : "Included";
 
   contentEl.innerHTML =
+    '<div class="no-print dossier" style="margin-bottom:20px;">' +
+    '<p class="dossier-label">Review before export</p>' +
+    "<h2 style=\"font-size:1.25rem;\">Checklist</h2>" +
+    '<ul class="pack-checklist">' +
+    '<li><span class="ck">Done</span><span>AI-use inventory recorded</span></li>' +
+    '<li><span class="ck">Done</span><span>Exposure classification + literacy track</span></li>' +
+    '<li><span class="ck">Done</span><span>Knowledge check ' +
+    pack.quiz.score +
+    "/" +
+    pack.quiz.total +
+    "</span></li>" +
+    '<li><span class="ck' +
+    (policySkipped ? " is-opt" : "") +
+    '">' +
+    (policySkipped ? "Optional" : "Done") +
+    "</span><span>Policy draft " +
+    (policySkipped ? "skipped" : "included") +
+    "</span></li>" +
+    '<li><span class="ck">Ready</span><span>SHA-256 hash + MOREA code will bind this export</span></li>' +
+    "</ul>" +
+    "</div>" +
     '<div class="pack-print dossier">' +
     '<p class="dossier-label">AI Literacy Evidence Pack · Illustrative</p>' +
     "<h1>Organisational literacy record</h1>" +

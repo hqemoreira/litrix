@@ -89,6 +89,10 @@
 
     check.addEventListener("change", function () {
       details.hidden = !check.checked;
+      if (check.checked) {
+        var none = document.getElementById("no-tools");
+        if (none) none.checked = false;
+      }
     });
   });
 
@@ -113,8 +117,7 @@
     }
   });
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
+  function collect(requireSelection) {
     var tools = [];
     listEl.querySelectorAll(".inventory-tool").forEach(function (wrap) {
       var id = wrap.dataset.toolId;
@@ -134,18 +137,54 @@
       });
     });
 
-    if (!noneCheck.checked && tools.length === 0) {
+    if (requireSelection && !noneCheck.checked && tools.length === 0) {
       var err = document.getElementById("inventory-error");
       err.textContent = "Select at least one tool, or confirm you use none.";
       err.style.display = "block";
-      return;
+      return null;
     }
 
-    var inventory = {
+    return {
       tools: tools,
       none: !!noneCheck.checked,
       completedAt: new Date().toISOString()
     };
+  }
+
+  function restore(saved) {
+    if (!saved) return;
+    if (saved.none) {
+      noneCheck.checked = true;
+      return;
+    }
+    (saved.tools || []).forEach(function (t) {
+      var wrap = listEl.querySelector('.inventory-tool[data-tool-id="' + t.id + '"]');
+      if (!wrap) return;
+      var cb = wrap.querySelector('input[type="checkbox"]');
+      cb.checked = true;
+      wrap.querySelector(".inventory-details").hidden = false;
+      var purpose = wrap.querySelector('select[name="purpose_' + t.id + '"]');
+      var sens = wrap.querySelector('select[name="sensitivity_' + t.id + '"]');
+      var custom = wrap.querySelector('input[name="custom_' + t.id + '"]');
+      if (purpose && t.purpose) purpose.value = t.purpose;
+      if (sens && t.sensitivity) sens.value = t.sensitivity;
+      if (custom && t.customName) custom.value = t.customName;
+    });
+  }
+
+  restore(MoreaStore.getJSON("inventory"));
+
+  document.addEventListener("morea:save", function (ev) {
+    var inv = collect(false);
+    if (!inv) return;
+    MoreaStore.setJSON("inventory", inv);
+    if (ev.detail && ev.detail.handled) ev.detail.handled.ok = true;
+  });
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var inventory = collect(true);
+    if (!inventory) return;
     MoreaStore.setJSON("inventory", inventory);
     window.location.href = "/assess.html";
   });

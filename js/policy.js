@@ -85,9 +85,9 @@
       "</p></div>";
   });
   html +=
-    '<p style="margin-top:24px;">' +
-    '<a class="btn btn-primary" href="/register.html">Include in Evidence Pack</a> ' +
-    '<a class="btn btn-secondary" href="/register.html" id="skip-policy">Skip policy draft</a>' +
+    '<p class="faint" style="margin-top:20px;">Use <strong>Include in Evidence Pack</strong> below to keep this draft, or skip if you only want the core evidence sections.</p>' +
+    '<p style="margin-top:12px;">' +
+    '<a class="btn btn-secondary" href="/register.html" id="skip-policy">Skip policy (optional)</a>' +
     "</p>";
   content.innerHTML = html;
 
@@ -97,6 +97,11 @@
       illustrative: true,
       generatedAt: new Date().toISOString()
     });
+  });
+
+  document.addEventListener("morea:save", function (ev) {
+    MoreaStore.setJSON("policy", policy);
+    if (ev.detail && ev.detail.handled) ev.detail.handled.ok = true;
   });
 
   function escapeHtml(str) {
