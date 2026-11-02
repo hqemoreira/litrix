@@ -470,8 +470,16 @@ footer.site-footer {
 }
 
 .logo-mark .logo-check {
-  stroke: var(--paper);
+  stroke: #faf8f5;
   fill: none;
+}
+:root[data-theme="dark"] .logo-mark .logo-check {
+  stroke: #181715;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .logo-mark .logo-check {
+    stroke: #181715;
+  }
 }
 
 .morea-stepper-host {
