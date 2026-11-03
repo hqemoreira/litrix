@@ -83,7 +83,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     return;
   }
 
-  if (sessionStorage.getItem("morea_quiz") || sessionStorage.getItem("MOREA_QUIZ")) {
+  if (sessionStorage.getItem("morea_quiz")) {
     window.location.href = "/register.html";
   } else if (data.user && data.user.company_id) {
     window.location.href = "/workspace.html";

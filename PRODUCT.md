@@ -35,3 +35,7 @@ Never claim legal advice, certification, or â€œget compliant for your company.â€
 ## Success look
 
 Clear steps; Evidence Pack is the demo object; mulberry/evidence brand; non-commercial line visible.
+
+## Changelog
+
+- **2026-11-03 (Forge s26 / morea-s02):** Litrix identifiers purged; archive Evidence Pack at morea-pack.vercel.app; GitHub homepage updated. Never reintroduce Litrix branding.
