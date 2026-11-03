@@ -1,4 +1,4 @@
-# Product brief — Morea (Evidence Pack)
+﻿# Product brief — Morea (Evidence Pack)
 
 ## Name
 
@@ -6,7 +6,7 @@ Morea
 
 ## One-liner
 
-Educational EU AI Act **Article 4** literacy trail → exportable Evidence Pack. Successor line to Litrix messaging. **Not** a compliance service.
+Educational EU AI Act **Article 4** literacy trail → exportable Evidence Pack. **Not** a compliance service.
 
 ## Audience
 

@@ -1,4 +1,4 @@
-const MOREA_QUIZ_STAFF = [
+﻿const MOREA_QUIZ_STAFF = [
   {
     id: "q1",
     question: "What does Article 4 of the EU AI Act require of organisations?",
@@ -84,7 +84,7 @@ const MOREA_QUIZ_PARTNER = [
   }
 ];
 
-const LITRIX_QUIZ = MOREA_QUIZ_STAFF;
+const MOREA_QUIZ = MOREA_QUIZ_STAFF;
 
 function moreaQuizForTrack(track) {
   return track === "partner_ops" ? MOREA_QUIZ_PARTNER : MOREA_QUIZ_STAFF;

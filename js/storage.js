@@ -1,7 +1,7 @@
-/** Morea persistence — localStorage primary (survives refresh), session + legacy fallbacks. */
+﻿/** Morea persistence — localStorage primary (survives refresh), session + legacy fallbacks. */
 window.MoreaStore = {
   prefix: "morea_",
-  legacyPrefix: "litrix_",
+  legacyPrefix: "morea_",
 
   get: function (key) {
     var k = this.prefix + key;

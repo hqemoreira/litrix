@@ -1,4 +1,4 @@
-// Deterministic Article 4 exposure classification — client-side only.
+﻿// Deterministic Article 4 exposure classification — client-side only.
 const MOREA_QUESTIONS = [
   {
     id: "size",
@@ -65,9 +65,6 @@ const MOREA_QUESTIONS = [
   }
 ];
 
-// Legacy alias for older scripts
-const LITRIX_QUESTIONS = MOREA_QUESTIONS;
-
 function moreaClassify(answers) {
   let score = 0;
   const optionLabels = {};
@@ -109,6 +106,6 @@ function moreaClassify(answers) {
   };
 }
 
-function litrixClassify(answers) {
+function moreaClassify(answers) {
   return moreaClassify(answers);
 }

@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(){try{var t=(localStorage.getItem("morea-theme")||localStorage.getItem("litrix-theme"));if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<script>(function(){try{var t=(localStorage.getItem("morea-theme"));if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <title>Demo login | Morea</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,7 +83,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
     return;
   }
 
-  if (sessionStorage.getItem("morea_quiz") || sessionStorage.getItem("litrix_quiz")) {
+  if (sessionStorage.getItem("morea_quiz") || sessionStorage.getItem("MOREA_QUIZ")) {
     window.location.href = "/register.html";
   } else if (data.user && data.user.company_id) {
     window.location.href = "/workspace.html";
