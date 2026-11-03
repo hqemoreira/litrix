@@ -1,4 +1,4 @@
-﻿# Product brief — Morea (Evidence Pack)
+# Product brief — Morea (Evidence Pack)
 
 ## Name
 

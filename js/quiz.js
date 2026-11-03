@@ -1,4 +1,4 @@
-﻿const MOREA_QUIZ_STAFF = [
+const MOREA_QUIZ_STAFF = [
   {
     id: "q1",
     question: "What does Article 4 of the EU AI Act require of organisations?",

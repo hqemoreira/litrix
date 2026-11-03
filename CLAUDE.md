@@ -1,4 +1,4 @@
-﻿# Morea Evidence Pack — Project Context for Claude Code
+# Morea Evidence Pack — Project Context for Claude Code
 
 ## What this is
 Non-commercial learning demo (**Morea Evidence Pack**) for EU AI Act Article 4 literacy + exportable evidence practice, for European SME / small professional-firm contexts. Built by Henrique (Espoo, Finland). **Not a company SaaS product**. GRYPS remains the hiring lead; Morea is a secondary tryable skill demo.

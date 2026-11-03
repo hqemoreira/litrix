@@ -1,4 +1,4 @@
-﻿// Deterministic Article 4 exposure classification — client-side only.
+// Deterministic Article 4 exposure classification — client-side only.
 const MOREA_QUESTIONS = [
   {
     id: "size",
@@ -104,8 +104,4 @@ function moreaClassify(answers) {
     optionLabels,
     classifiedAt: new Date().toISOString()
   };
-}
-
-function moreaClassify(answers) {
-  return moreaClassify(answers);
 }
